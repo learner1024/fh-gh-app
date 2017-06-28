@@ -1,0 +1,29 @@
+{
+  "name": "fh-gh-app",
+  "version": "0.0.1",
+  "description": "fhooghle",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/learner1024/fh-gh-app.git"
+  },
+  "author": "sandeep",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/learner1024/fh-gh-app/issues"
+  },
+  "homepage": "https://github.com/learner1024/fh-gh-app#readme",
+  "dependencies": {
+    "angular": "1.5.11",
+    "angular-route": "^1.5.11",
+    "angular-ui-bootstrap": "2.5.0",
+    "bootstrap": "3.3.7"
+  },
+  "devDependencies": {
+    "http-server": "^0.10.0"
+  }
+}
