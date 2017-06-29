@@ -34,17 +34,19 @@ Take the time you need to create this project, there is no deadline for it.
 ========================================================================================================================================================================================================================================================
 
 Work items
-create git repository
-configure dependencies
-configre npm scripts
-use gulp / webpack
-f1 search users
-f2 display user search results (TODO : maintain route info here)
-f3 on select user, display gist info if gist info exists
-f4 store mapping of userid and gistid in sessionStorage
-f5 disable create gist button if gist already exists
-
-setup unit tests
-setup and use bootstrap
-setup sass
-refactor / restructure
+DONE create git repository
+DONE configure dependencies
+DONE configre npm scripts
+TODO2 use gulp / webpack
+DONE f1 search users
+DONE f2 display user search results
+DONE f3 on select user, display gist info if gist info exists
+DONE f4 store mapping of userid and gistid in sessionStorage
+TODO1 f5 disable create gist button if gist already exists
+TODO1 f6 router for search term
+DONE f7 router for search results to gist details
+TODO2 setup babel and use es6 / es7 
+TODO1 setup unit tests
+DONE setup and use bootstrap
+TODO2 setup sass
+TODO1 refactor / restructure
