@@ -1,9 +1,4 @@
 angular.module('fhooghle', ['ngRoute'])
-    // .config(['$httpProvider', function($httpProvider) {
-    //     $httpProvider.defaults.headers.patch = {
-    //         'Content-Type': 'application/json;charset=utf-8'
-    //     }
-    // }])
     .controller('searchController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
         $scope.searchTrm = '';
         $scope.onSearchTrmChanged = function(){
