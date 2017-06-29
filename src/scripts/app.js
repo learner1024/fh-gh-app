@@ -49,29 +49,8 @@ angular.module('fhooghle', ['ngRoute'])
         }
 
         $scope.postGist = function(){
-            //if(gistId !== null){
-                //58533015cf37482aa2d73d81ee2e6b45
-                //first delete existing gist and then create new gist
-                //$http.delete('https://api.github.com/gists/' + gistId);
-                
-                // $http.patch('https://api.github.com/gists/' + gistId, {
-                //     "description": $scope.gistDescription,
-                //     "files": {
-                //         "gist.txt": {
-                //             "content": $scope.gistContent
-                //         }
-                //     }
-                // }).then(
-                //     function(response){
-                //         //success
-                //     },
-                //     function(response){
-                //         //failure
-                //         console.log(response);
-                //     }
-                // )
-            //}
-            //else {
+            gistId = sessionStorage.getItem('fhooghle_' + $scope.userId);
+            if(gistId === null){
                 $http.post('https://api.github.com/gists', {
                     "description": $scope.gistDescription,
                     "public": true,
@@ -90,9 +69,7 @@ angular.module('fhooghle', ['ngRoute'])
                         console.log(response);
                     }
                 )
-            //}
-
-            
+            }
         }
         
     }])

@@ -1,0 +1,50 @@
+Problem Statement
+
+The Challenge:
+ 
+Create a basic web Single-Page-Application using JavaScript and Angular 1.x:
+ 
+Must contain a search box to search for users in the Github API;
+When a user is selected, display a form, with a text field and a text area;
+Use the Gist API to store the data from the text field and textarea, you can store the gist ID locally, when the user is selected, it must show the Gist data if it already exist for that user;
+Ensure that the Gist data is kept even if the browser refreshes. You don’t need to keep this data if the browser gets closed;
+ 
+You’re not required to create a backend for this task, however you can use any tool helps you to do it. We recommend Yeoman to speed things up.
+ 
+Your code must be in a git repository, you can host in any git website like Github.com or Bitbucket.org Then you send us the link for it.
+ 
+Good to have, but not required:
+Router: provide consistent URLs, when browser is refreshed it displays the same state that the user was when performing actions in the website;
+Tests: At least one controller with unit tests;
+Styles: you can use CSS, it will be an extra if you use LESS or SCSS. You can also use style libs like Bootstrap, Material or other.
+ 
+Browser requirements: You can develop for the latest modern browsers, don’t need to worry about compatibility with non modern browsers.
+ 
+Language: JavaScript, you can use ES3 to 7, since that if you’re using ES7 features, please transpile your code using Babel with such features enabled.
+ 
+README.md file must be provided with information on how to install and run your code locally, and how to run the tests.
+ 
+Github API documentation is available at https://developer.github.com/v3/
+ 
+Pro tip: All the operations in this project can be done without authentication in the Github API.
+ 
+Take the time you need to create this project, there is no deadline for it.
+
+
+========================================================================================================================================================================================================================================================
+
+Work items
+create git repository
+configure dependencies
+configre npm scripts
+use gulp / webpack
+f1 search users
+f2 display user search results (TODO : maintain route info here)
+f3 on select user, display gist info if gist info exists
+f4 store mapping of userid and gistid in sessionStorage
+f5 disable create gist button if gist already exists
+
+setup unit tests
+setup and use bootstrap
+setup sass
+refactor / restructure
