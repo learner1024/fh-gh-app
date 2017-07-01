@@ -1,17 +1,48 @@
 angular.module('fhooghle', ['ngRoute'])
-    .controller('searchController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
+    .factory('FhooghleDataService', ['$http', '$q', function($http, $q){
+        return {
+            searchUsers : function(searchTerm){
+                return $http.get('https://api.github.com/search/users?q=' + searchTerm);
+            },
+            getGistById: function(gistId){
+                return $http.get('https://api.github.com/gists/' + gistId);
+            },
+            createNewGist: function(gistDescription, gistContent){
+                return $http.post('https://api.github.com/gists', {
+                    "description": gistDescription,
+                    "public": false,
+                    "files": {
+                        "gist.txt": {
+                            "content": gistContent
+                        }
+                    }
+                })
+            }
+        }}])
+    .factory('FhooghleStorageService', function(){
+        return {
+            getItem: function(userId){
+                return sessionStorage.getItem('fhooghle_' + userId);
+            },
+            setItem: function(userId, gistId){
+                sessionStorage.setItem('fhooghle_' + userId, gistId);
+            }
+        }
+    })
+    .controller('searchController', ['$rootScope', '$scope', 'FhooghleDataService', function($rootScope, $scope, FhooghleDataService){
         $scope.searchTrm = '';
         $scope.onSearchTrmChanged = function(){
             if($scope.searchTrm.length > 0){
-                $http.get('https://api.github.com/search/users?q=' + $scope.searchTrm)
-                .then(function(response){
-                    //success
-                    $rootScope.$broadcast('user_search_results_ready', response.data.items);
-                }, 
-                function(response){
-                    //failure
-                    console.log('failure');
-                });
+                FhooghleDataService.searchUsers($scope.searchTrm).then(
+                    function(response){
+                        //success
+                        $rootScope.$broadcast('user_search_results_ready', response.data.items);
+                    }, 
+                    function(response){
+                        //failure
+                        console.log('failure');
+                    }
+                )
             }
             else{
                 $rootScope.$broadcast('user_search_results_clear');
@@ -28,16 +59,17 @@ angular.module('fhooghle', ['ngRoute'])
         })
         
     }])
-    .controller('gistsController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+    .controller('gistsController', ['$scope', 'FhooghleDataService', '$routeParams', 'FhooghleStorageService', 
+    function($scope, FhooghleDataService, $routeParams, FhooghleStorageService){
         $scope.userId = $routeParams.userId;
 
-        var gistId = sessionStorage.getItem('fhooghle_' + $scope.userId);
+        var gistId = FhooghleStorageService.getItem($scope.userId);
 
         $scope.gistDescription = '';
         $scope.gistContent = '';
 
         if(gistId !== null){
-            $http.get('https://api.github.com/gists/' + gistId).then(
+            FhooghleDataService.getGistById(gistId).then(
                 function(response){
                     $scope.gistDescription = response.data.description;
                     $scope.gistContent = response.data.files['gist.txt'].content;
@@ -49,20 +81,12 @@ angular.module('fhooghle', ['ngRoute'])
         }
 
         $scope.postGist = function(){
-            gistId = sessionStorage.getItem('fhooghle_' + $scope.userId);
+            gistId = FhooghleStorageService.getItem($scope.userId);
             if(gistId === null){
-                $http.post('https://api.github.com/gists', {
-                    "description": $scope.gistDescription,
-                    "public": true,
-                    "files": {
-                        "gist.txt": {
-                            "content": $scope.gistContent
-                        }
-                    }
-                }).then(
+                FhooghleDataService.createNewGist($scope.gistDescription, $scope.gistContent).then(
                     function(response){
                         //success
-                        sessionStorage.setItem('fhooghle_' + $scope.userId, response.data.id);
+                        FhooghleStorageService.setItem($scope.userId, response.data.id);
                     },
                     function(response){
                         //failure
